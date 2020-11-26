@@ -4,6 +4,7 @@ import RELATION_Categories_Products from '../models/RELATION_Categories_Products
 import Categories from '../models/Categories';
 import Products from '../models/Products';
 import relationCategoriesProductsView from '../views/relationCategoriesProductsView';
+import productsView from '../views/productsView';
 import * as Yup from 'yup';
 
 interface relationView extends RELATION_Categories_Products {
@@ -64,6 +65,35 @@ export default {
                     }
                 })
             }
+        });
+    },
+
+    async showByCategoryId(request: Request, response: Response) {
+        const { id } = request.params;
+
+        const relationsRepository = getRepository(RELATION_Categories_Products);
+        const categoriesRepository = getRepository(Categories);
+        const productsRepository = getRepository(Products);
+
+        const category = await categoriesRepository.findOneOrFail(id);
+        const relations = await relationsRepository.find();
+        const products = await productsRepository.find();
+
+        const relationsView: Products[] = [];
+
+        relations.forEach((relation) => {
+            if (category.id === relation.categories_id) {
+                products.forEach((product) => {
+                    if (product.id === relation.products_id) {
+                        relationsView.push(product);
+                    }
+                })
+            }
+        });
+
+        return response.json({
+            ...category,
+            products: productsView.renderMany(relationsView)
         });
     },
 
