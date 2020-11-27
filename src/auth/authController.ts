@@ -15,15 +15,16 @@ export default {
 
         let userFound = false;
 
-        const userData = users.map((user) => {
+        let userData = {};
+        users.map((user) => {
             if (email === user.email && password === user.password) {
                 userFound = true;
-                return {
+                userData = {
                     name: user.name,
                     email: user.email
                 };
             }
-        })[0];
+        });
         
         if (userFound) {
             return response.json({
