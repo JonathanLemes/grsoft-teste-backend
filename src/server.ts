@@ -13,3 +13,5 @@ app.use(routes);
 app.use(errorHandler);
 
 app.listen(process.env.PORT);
+
+export default app;

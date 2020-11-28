@@ -21,4 +21,6 @@ routes.get('/categories/:id', categoriesController.show);
 routes.get('/categories/:id/products', relationCategoriesProductsController.showByCategoryId);
 routes.get('/products/:id', productsController.show);
 
+routes.delete('/categories', categoriesController.deleteAll);
+
 export default routes;

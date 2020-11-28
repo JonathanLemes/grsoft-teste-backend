@@ -49,5 +49,21 @@ export default {
         const categories = await categoriesRepository.find();
 
         return response.json(categoriesView.renderMany(categories));
+    },
+
+    async deleteAll(request: Request, response: Response) {
+        const categoriesRepository = getRepository(Categories);
+
+        categoriesRepository.createQueryBuilder().delete().execute().then((res) => {
+            response.status(401).json({
+                check: true,
+                res: res
+            });
+        }).catch((err) => {
+            response.status(500).json({
+                check: false,
+                res: err
+            });
+        });
     }
 }
