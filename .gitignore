@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # Tests data
-__tests__/unit/database.sqlite
+tests/unit/database.sqlite
