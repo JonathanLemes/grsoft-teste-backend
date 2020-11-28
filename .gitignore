@@ -104,4 +104,4 @@ dist
 .tern-port
 
 # Tests data
-tests/unit/*.sqlite
+tests/**/*.sqlite
